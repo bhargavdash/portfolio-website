@@ -7,6 +7,7 @@ import { SkillCard } from './components/SkillCard';
 import { ContactCard } from './components/ContactCard';
 import { FloatingElements } from './components/FloatingElements';
 
+
 const projects = [
   {
     id: 1,
@@ -20,11 +21,11 @@ const projects = [
   },
   {
     id: 2,
-    title: "Story from Images",
+    title: "StoryLens",
     description: "AI-powered application that generates creative stories from uploaded images using advanced machine learning algorithms.",
     technologies: ["Python", "Machine Learning", "React", "Express", "OpenAI API"],
     githubUrl: "https://github.com/bhargavdash/story-from-images",
-    liveUrl: "https://story-from-images.vercel.app/",
+    liveUrl: "https://frontend-tau-gray-31.vercel.app/",
     gradient: "from-green-500 to-teal-600",
     icon: <Code className="w-6 h-6" />
   }
@@ -42,6 +43,10 @@ const skills = [
 ];
 
 function App() {
+
+  const date = new Date();
+  const currYear = date.getFullYear();
+  
   const { theme, setTheme } = useTheme();
 
   const { ref: heroRef, isIntersecting: heroInView } = useIntersectionObserver();
@@ -320,7 +325,7 @@ function App() {
       <footer className="bg-gray-900 dark:bg-gray-950 text-white py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-gray-400">
-            © 2024 Bhargav Dash. Built with React & Tailwind CSS.
+            © {currYear} Bhargav Dash
           </p>
         </div>
       </footer>
