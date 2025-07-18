@@ -142,7 +142,7 @@ function App() {
               About Me
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Currently pursuing B.E. in Computer Science & Engineering at Siksha 'O' Anusandhan with a CGPA of 9.18
+              Currently pursuing B.Tech in Computer Science & Engineering at Odisha University of Technology & Research with a CGPA of 9.01
             </p>
           </div>
           
