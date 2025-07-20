@@ -1,4 +1,4 @@
-import { Moon, Sun, Monitor, Github, Linkedin, Mail, Phone, MapPin, Code, Palette, Database, Globe, Zap, Users } from 'lucide-react';
+import { Moon, Sun, Monitor, Github, Linkedin, Mail, Phone, MapPin, Code, Palette, Database, Globe, Zap, Users, Briefcase, X as XIcon } from 'lucide-react';
 import { useIntersectionObserver } from './hooks/useIntersectionObserver';
 import { useTheme } from './contexts/ThemeContext';
 import { TypewriterEffect } from './components/TypewriterEffect';
@@ -6,6 +6,8 @@ import { ProjectCard } from './components/ProjectCard';
 import { SkillCard } from './components/SkillCard';
 import { ContactCard } from './components/ContactCard';
 import { FloatingElements } from './components/FloatingElements';
+import { ExperienceCard } from './components/ExperienceCard';
+import React, { useState } from 'react';
 
 
 const projects = [
@@ -31,15 +33,104 @@ const projects = [
   }
 ];
 
-const skills = [
-  { name: "React", level: 90, icon: <Globe className="w-6 h-6" />, color: "from-blue-500 to-cyan-500" },
-  { name: "Node.js", level: 85, icon: <Database className="w-6 h-6" />, color: "from-green-500 to-emerald-500" },
-  { name: "TypeScript", level: 80, icon: <Code className="w-6 h-6" />, color: "from-blue-600 to-indigo-600" },
-  { name: "MongoDB", level: 75, icon: <Database className="w-6 h-6" />, color: "from-green-600 to-teal-600" },
-  { name: "Socket.io", level: 85, icon: <Zap className="w-6 h-6" />, color: "from-yellow-500 to-orange-500" },
-  { name: "Express", level: 80, icon: <Globe className="w-6 h-6" />, color: "from-gray-600 to-gray-800" },
-  { name: "Python", level: 75, icon: <Code className="w-6 h-6" />, color: "from-yellow-600 to-red-600" },
-  { name: "PostgreSQL", level: 70, icon: <Database className="w-6 h-6" />, color: "from-blue-700 to-purple-700" }
+// Experience data
+const experiences = [
+  {
+    company: 'Accenture',
+    role: 'Associate Software Engineer Intern',
+    location: 'Hybrid',
+    duration: 'Feb 2025 - June 2025',
+    highlights: [
+      'Worked in the MOSOT team of McDonald’s project at Accenture, contributing to UI development for the MOSOT product',
+      'Collaborated with the UI team to identify and resolve critical bugs in React.js-based user interface',
+      'Developed proficiency in Python data analysis using Pandas and Matplotlib',
+      'Analyzed raw transactional sales data into actionable business insights for strategic decision-making',
+      'Participated in cross-functional collaboration between UI development and data engineering teams'
+    ],
+    icon: <Briefcase className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+  },
+  {
+    company: 'Krescutis Technology Solutions (P) Ltd.',
+    role: 'Software Engineer Intern',
+    location: 'Remote',
+    duration: 'April 2024 - June 2024',
+    highlights: [
+      'Worked on Spenowr, a social commerce platform empowering artists and creative entities',
+      'Contributed to administrative panel development with dashboard reporting and email campaign management',
+      'Participated in code reviews, debugging, and performance optimization'
+    ],
+    icon: <Briefcase className="w-6 h-6 text-green-600 dark:text-green-400" />
+  }
+];
+
+// Categorized skills data
+const categorizedSkills = [
+  {
+    category: 'Programming Languages',
+    color: 'from-blue-500 to-cyan-500',
+    skills: [
+      { name: 'C', level: 70, icon: <Code className="w-6 h-6" /> },
+      { name: 'C++', level: 80, icon: <Code className="w-6 h-6" /> },
+      { name: 'JavaScript', level: 90, icon: <Code className="w-6 h-6" /> },
+      { name: 'TypeScript', level: 85, icon: <Code className="w-6 h-6" /> },
+      { name: 'Python', level: 80, icon: <Code className="w-6 h-6" /> },
+    ]
+  },
+  {
+    category: 'Frameworks & Libraries',
+    color: 'from-green-500 to-emerald-500',
+    skills: [
+      { name: 'React.js', level: 90, icon: <Globe className="w-6 h-6" /> },
+      { name: 'Next.js', level: 80, icon: <Globe className="w-6 h-6" /> },
+      { name: 'Angular', level: 60, icon: <Globe className="w-6 h-6" /> },
+      { name: 'Node.js', level: 85, icon: <Database className="w-6 h-6" /> },
+      { name: 'Express.js', level: 80, icon: <Globe className="w-6 h-6" /> },
+      { name: 'FastAPI', level: 65, icon: <Zap className="w-6 h-6" /> },
+      { name: 'PyTorch', level: 60, icon: <Zap className="w-6 h-6" /> },
+    ]
+  },
+  {
+    category: 'Databases',
+    color: 'from-blue-700 to-purple-700',
+    skills: [
+      { name: 'MySQL', level: 75, icon: <Database className="w-6 h-6" /> },
+      { name: 'PostgreSQL', level: 70, icon: <Database className="w-6 h-6" /> },
+      { name: 'MongoDB', level: 75, icon: <Database className="w-6 h-6" /> },
+      { name: 'Prisma ORM', level: 65, icon: <Database className="w-6 h-6" /> },
+      { name: 'Redis', level: 60, icon: <Database className="w-6 h-6" /> },
+    ]
+  },
+  {
+    category: 'Cloud & DevOps',
+    color: 'from-indigo-500 to-blue-700',
+    skills: [
+      { name: 'AWS (Lambda, API Gateway, Polly, GCP)', level: 60, icon: <Globe className="w-6 h-6" /> },
+      { name: 'Vercel', level: 70, icon: <Globe className="w-6 h-6" /> },
+      { name: 'Docker', level: 60, icon: <Globe className="w-6 h-6" /> },
+      { name: 'Git', level: 85, icon: <Code className="w-6 h-6" /> },
+    ]
+  },
+  {
+    category: 'AI / ML',
+    color: 'from-yellow-500 to-orange-500',
+    skills: [
+      { name: 'PyTorch', level: 60, icon: <Zap className="w-6 h-6" /> },
+      { name: 'Gemini API', level: 55, icon: <Zap className="w-6 h-6" /> },
+      { name: 'Cursor AI', level: 50, icon: <Zap className="w-6 h-6" /> },
+    ]
+  },
+  {
+    category: 'Other Tools',
+    color: 'from-gray-600 to-gray-800',
+    skills: [
+      { name: 'WebSocket', level: 80, icon: <Zap className="w-6 h-6" /> },
+      { name: 'JWT', level: 70, icon: <Code className="w-6 h-6" /> },
+      { name: 'NextAuth.js', level: 60, icon: <Code className="w-6 h-6" /> },
+      { name: 'BcryptJS', level: 60, icon: <Code className="w-6 h-6" /> },
+      { name: 'Postman', level: 75, icon: <Code className="w-6 h-6" /> },
+      { name: 'TurboRepo', level: 60, icon: <Code className="w-6 h-6" /> },
+    ]
+  }
 ];
 
 function App() {
@@ -54,6 +145,9 @@ function App() {
   const { ref: projectsRef, isIntersecting: projectsInView } = useIntersectionObserver();
   const { ref: skillsRef, isIntersecting: skillsInView } = useIntersectionObserver();
   const { ref: contactRef, isIntersecting: contactInView } = useIntersectionObserver();
+  const { ref: experienceRef, isIntersecting: experienceInView } = useIntersectionObserver();
+
+  const [openCategory, setOpenCategory] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-blue-900 dark:to-indigo-900 transition-all duration-500">
@@ -206,6 +300,25 @@ function App() {
         </div>
       </section>
 
+      {/* Experience Section */}
+      <section id="experience" ref={experienceRef} className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className={`text-center mb-16 transition-all duration-1000 ${experienceInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}> 
+            <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              Experience
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              My professional journey and internships
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {experiences.map((exp, idx) => (
+              <ExperienceCard key={exp.company} experience={exp} index={idx} isVisible={experienceInView} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Skills Section */}
       <section id="skills" ref={skillsRef} className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50/50 dark:bg-gray-900/50">
         <div className="max-w-6xl mx-auto">
@@ -217,17 +330,56 @@ function App() {
               Technologies and tools I work with to bring ideas to life
             </p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {skills.map((skill, index) => (
-              <SkillCard
-                key={skill.name}
-                skill={skill}
-                index={index}
-                isVisible={skillsInView}
-              />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {categorizedSkills.map((cat) => (
+              <button
+                key={cat.category}
+                className={`w-full flex flex-col items-center justify-center p-10 rounded-2xl shadow-lg bg-white/80 dark:bg-gray-800/80 border border-gray-200/50 dark:border-gray-700/50 hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 ${openCategory === cat.category ? 'ring-2 ring-blue-500 dark:ring-blue-400' : ''}`}
+                onClick={() => setOpenCategory(cat.category)}
+                style={{ minHeight: '120px' }}
+              >
+                <span className={`inline-block w-2 h-8 rounded-full mb-3 bg-gradient-to-b ${cat.color}`}></span>
+                <h3 className="text-2xl font-bold text-gray-800 dark:text-white font-playfair mb-2">{cat.category}</h3>
+                <span className="text-gray-500 dark:text-gray-400 text-sm">Click to view skills</span>
+              </button>
             ))}
           </div>
+
+          {/* Modal/Popup for category details */}
+          {openCategory && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 dark:bg-black/70 transition-all duration-500"
+              onClick={() => setOpenCategory(null)}
+              style={{ animation: 'fadeInBg 0.4s' }}
+            >
+              <div
+                className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 p-10 flex flex-col items-center w-[80vw] max-w-3xl max-h-[80vh] overflow-y-auto animate-modalIn"
+                style={{ minHeight: '60vh', minWidth: '60vw' }}
+                onClick={e => e.stopPropagation()}
+              >
+                <button
+                  className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-white text-3xl font-bold focus:outline-none"
+                  onClick={() => setOpenCategory(null)}
+                  aria-label="Close"
+                >
+                  &times;
+                </button>
+                {categorizedSkills.filter(cat => cat.category === openCategory).map(cat => (
+                  <div key={cat.category} className="w-full">
+                    <div className="flex items-center mb-6">
+                      <span className={`inline-block w-2 h-8 rounded-full mr-3 bg-gradient-to-b ${cat.color}`}></span>
+                      <h3 className="text-3xl font-bold text-gray-800 dark:text-white font-playfair">{cat.category}</h3>
+                    </div>
+                    <div className="space-y-6">
+                      {cat.skills.map((skill, idx) => (
+                        <SkillCard key={skill.name} skill={skill} index={idx} isVisible={true} />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -305,15 +457,25 @@ function App() {
           
           <div className={`text-center mt-12 transition-all duration-1000 delay-800 ${contactInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}> 
             <div className="bg-white/60 dark:bg-white/10 backdrop-blur-sm rounded-lg p-6 inline-block border border-gray-200 dark:border-white/10">
-              <p className="text-slate-600 dark:text-slate-400 mb-4">Also find me on:</p>
+              <p className="text-slate-600 dark:text-slate-400 mb-4 font-medium">Also find me on:</p>
               <div className="flex justify-center space-x-4">
                 <a 
                   href="https://leetcode.com/u/bhargavdash/"
-                  className="bg-blue-100 hover:bg-blue-200 dark:bg-white/5 dark:hover:bg-white/15 p-3 rounded-lg transition-all duration-300 transform hover:scale-105 border border-blue-200 dark:border-white/20"
+                  className="flex flex-col items-center bg-blue-100 hover:bg-blue-200 dark:bg-white/5 dark:hover:bg-white/15 p-3 rounded-lg transition-all duration-300 transform hover:scale-105 border border-blue-200 dark:border-white/20 min-w-[70px]"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Code className="w-5 h-5 text-blue-700 dark:text-white" />
+                  <Code className="w-6 h-6 text-blue-700 dark:text-blue-200 mb-1" />
+                  <span className="text-xs text-blue-700 dark:text-blue-200 font-semibold">LeetCode</span>
+                </a>
+                <a 
+                  href="#x-link"
+                  className="flex flex-col items-center bg-blue-100 hover:bg-blue-200 dark:bg-white/5 dark:hover:bg-white/15 p-3 rounded-lg transition-all duration-300 transform hover:scale-105 border border-blue-200 dark:border-white/20 min-w-[70px]"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <XIcon className="w-6 h-6 text-blue-700 dark:text-blue-200 mb-1" />
+                  <span className="text-xs text-blue-700 dark:text-blue-200 font-semibold">X</span>
                 </a>
               </div>
             </div>
