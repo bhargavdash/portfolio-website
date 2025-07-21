@@ -211,18 +211,27 @@ function App() {
             Specialized in React, Node.js, and creating seamless user experiences.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col items-center gap-4 justify-center w-full">
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
+              <a 
+                href="#projects" 
+                className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-medium hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg w-full sm:w-64 text-center"
+              >
+                View My Work
+              </a>
+              <a 
+                href="#contact" 
+                className="px-8 py-4 border-2 border-blue-500 text-blue-500 dark:text-blue-400 rounded-lg font-medium hover:bg-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 w-full sm:w-64 text-center"
+              >
+                Get In Touch
+              </a>
+            </div>
             <a 
-              href="#projects" 
-              className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-medium hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
+              href="/bhargav_resume.pdf"
+              download 
+              className="px-8 py-4 border-2 border-blue-500 text-blue-500 dark:text-blue-400 rounded-lg font-medium hover:bg-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 w-full sm:w-64 text-center"
             >
-              View My Work
-            </a>
-            <a 
-              href="#contact" 
-              className="px-8 py-4 border-2 border-blue-500 text-blue-500 dark:text-blue-400 rounded-lg font-medium hover:bg-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300"
-            >
-              Get In Touch
+              Resume
             </a>
           </div>
         </div>
