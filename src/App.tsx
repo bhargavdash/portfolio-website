@@ -15,7 +15,7 @@ const projects = [
     id: 1,
     title: "DrawSync",
     description: "Real-time collaborative drawing application with live synchronization, multiple brush tools, and room-based collaboration features.",
-    technologies: ["React", "Node.js", "ws-library", "TypeScript", "Canvas API", "prisma", "postgreSQL", "redis"],
+    technologies: ["Next.js", "Node.js", "ws-library", "TypeScript", "Canvas API", "prisma", "postgreSQL", "redis"],
     githubUrl: "https://github.com/bhargavdash/DrawSync",
     liveUrl: "https://drawsync-dusky.vercel.app/",
     gradient: "from-blue-500 to-purple-600",
